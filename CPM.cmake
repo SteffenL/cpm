@@ -828,9 +828,25 @@ endfunction()
 
 macro(_cpm_make_valid_unid_or_path variable)
   if (NOT "${${variable}}" STREQUAL "")
-    string(REGEX REPLACE "[\\]" "/" ${variable} ${${variable}})
+    string(REGEX REPLACE "^git@" "" ${variable} ${${variable}})
+    string(REGEX REPLACE "^https://" "" ${variable} ${${variable}})
+    string(REGEX REPLACE "^http://" "" ${variable} ${${variable}})
+    string(REGEX REPLACE "^ssh://" "" ${variable} ${${variable}})
+    string(REGEX REPLACE "^git://" "" ${variable} ${${variable}})
+    string(REGEX REPLACE "^ftp://" "" ${variable} ${${variable}})
+    string(REGEX REPLACE "^ftps://" "" ${variable} ${${variable}})
+    string(REGEX REPLACE "^rsync://" "" ${variable} ${${variable}})
+
+    string(REGEX REPLACE "github.com" "github" ${variable} ${${variable}})
+    string(REGEX REPLACE "bitbucket.org" "bitbucket" ${variable} ${${variable}})
+
+    # Strip off .git extension, if any.
+    string(REGEX REPLACE "\\.git$" "" ${variable} ${${variable}})
+
+    string(REGEX REPLACE "[/@:]" "_" ${variable} ${${variable}})
+    string(REGEX REPLACE "[/\\.?-]" "" ${variable} ${${variable}})
+
     string(TOLOWER ${${variable}} ${variable})
-    string(MD5 ${variable} ${${variable}})
   endif()
 endmacro()
 
@@ -1075,6 +1091,7 @@ function(CPM_AddModule name)
   _cpm_make_valid_unid_or_path(__CPM_PATH_UNID)
   _cpm_make_valid_unid_or_path(__CPM_PATH_UNID_VERSION)
   set(__CPM_FULL_UNID "${__CPM_PATH_UNID}_${__CPM_PATH_UNID_VERSION}")
+  string(MD5 __CPM_FULL_UNID ${__CPM_FULL_UNID})
 
   _cpm_debug_log("Module full UNID: ${__CPM_FULL_UNID}")
 
