@@ -1091,7 +1091,7 @@ function(CPM_AddModule name)
   _cpm_make_valid_unid_or_path(__CPM_PATH_UNID)
   _cpm_make_valid_unid_or_path(__CPM_PATH_UNID_VERSION)
   set(__CPM_FULL_UNID "${__CPM_PATH_UNID}_${__CPM_PATH_UNID_VERSION}")
-  string(MD5 __CPM_FULL_UNID ${__CPM_FULL_UNID})
+  string(SUBSTRING ${__CPM_FULL_UNID} -20 20 __CPM_FULL_UNID)
 
   _cpm_debug_log("Module full UNID: ${__CPM_FULL_UNID}")
 
