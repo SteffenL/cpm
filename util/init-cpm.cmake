@@ -1,4 +1,4 @@
-set(CPM_REPOSITORY https://github.com/iauns/cpm)
+set(CPM_REPOSITORY https://github.com/SteffenL/cpm)
 set(CPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/cpm_packages" CACHE TYPE STRING)
 find_package(Git)
 if(NOT GIT_FOUND)
