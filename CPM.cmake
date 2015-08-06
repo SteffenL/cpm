@@ -1091,7 +1091,13 @@ function(CPM_AddModule name)
   _cpm_make_valid_unid_or_path(__CPM_PATH_UNID)
   _cpm_make_valid_unid_or_path(__CPM_PATH_UNID_VERSION)
   set(__CPM_FULL_UNID "${__CPM_PATH_UNID}_${__CPM_PATH_UNID_VERSION}")
-  string(SUBSTRING ${__CPM_FULL_UNID} -20 20 __CPM_FULL_UNID)
+
+  # Hack to shorten long file paths by trimming the beginning of the string (hopefully keeping the least common part)
+  # The reason is platform-specific limitations, specifically on Windows
+  set(__CPM_FULL_UNID_MAX_LENGTH 40)
+  string(LENGTH ${__CPM_FULL_UNID} __CPM_FULL_UNID_LENGTH_TEMP)
+  math(EXPR __CPM_FULL_UNID_LENGTH_TEMP "${__CPM_FULL_UNID_LENGTH_TEMP} - ${__CPM_FULL_UNID_MAX_LENGTH}")
+  string(SUBSTRING ${__CPM_FULL_UNID}  ${__CPM_FULL_UNID_LENGTH_TEMP} -1 __CPM_FULL_UNID)
 
   _cpm_debug_log("Module full UNID: ${__CPM_FULL_UNID}")
 
