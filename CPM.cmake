@@ -1094,10 +1094,12 @@ function(CPM_AddModule name)
 
   # Hack to shorten long file paths by trimming the beginning of the string (hopefully keeping the least common part)
   # The reason is platform-specific limitations, specifically on Windows
-  set(__CPM_FULL_UNID_MAX_LENGTH 40)
+  set(__CPM_FULL_UNID_MAX_LENGTH 32)
   string(LENGTH ${__CPM_FULL_UNID} __CPM_FULL_UNID_LENGTH_TEMP)
-  math(EXPR __CPM_FULL_UNID_LENGTH_TEMP "${__CPM_FULL_UNID_LENGTH_TEMP} - ${__CPM_FULL_UNID_MAX_LENGTH}")
-  string(SUBSTRING ${__CPM_FULL_UNID}  ${__CPM_FULL_UNID_LENGTH_TEMP} -1 __CPM_FULL_UNID)
+  if(${__CPM_FULL_UNID_LENGTH_TEMP} GREATER __CPM_FULL_UNID_MAX_LENGTH)
+    math(EXPR __CPM_FULL_UNID_LENGTH_TEMP "${__CPM_FULL_UNID_LENGTH_TEMP} - ${__CPM_FULL_UNID_MAX_LENGTH}")
+    string(SUBSTRING ${__CPM_FULL_UNID}  ${__CPM_FULL_UNID_LENGTH_TEMP} -1 __CPM_FULL_UNID)
+  endif()
 
   _cpm_debug_log("Module full UNID: ${__CPM_FULL_UNID}")
 
