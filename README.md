@@ -59,7 +59,7 @@ self-contained and will build as-is:
   project(foo)
 
   #------------------------------------------------------------------------------
-  # Required CPM Setup - no need to modify - See: https://github.com/iauns/cpm
+  # Required CPM Setup - no need to modify - See: https://github.com/SteffenL/cpm
   #------------------------------------------------------------------------------
   set(CPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/cpm_packages" CACHE TYPE STRING)
   find_package(Git)
@@ -67,9 +67,9 @@ self-contained and will build as-is:
     message(FATAL_ERROR "CPM requires Git.")
   endif()
   if (NOT EXISTS ${CPM_DIR}/CPM.cmake)
-    message(STATUS "Cloning repo (https://github.com/iauns/cpm)")
+    message(STATUS "Cloning repo (https://github.com/SteffenL/cpm)")
     execute_process(
-      COMMAND "${GIT_EXECUTABLE}" clone https://github.com/iauns/cpm ${CPM_DIR}
+      COMMAND "${GIT_EXECUTABLE}" clone https://github.com/SteffenL/cpm ${CPM_DIR}
       RESULT_VARIABLE error_code
       OUTPUT_QUIET ERROR_QUIET)
     if(error_code)
@@ -142,7 +142,7 @@ CMakeLists.txt:
 
 ```cmake
   #------------------------------------------------------------------------------
-  # Required CPM Setup - no need to modify - See: https://github.com/iauns/cpm
+  # Required CPM Setup - no need to modify - See: https://github.com/SteffenL/cpm
   #------------------------------------------------------------------------------
   set(CPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/cpm-packages" CACHE TYPE STRING)
   find_package(Git)
@@ -150,9 +150,9 @@ CMakeLists.txt:
     message(FATAL_ERROR "CPM requires Git.")
   endif()
   if (NOT EXISTS ${CPM_DIR}/CPM.cmake)
-    message(STATUS "Cloning repo (https://github.com/iauns/cpm)")
+    message(STATUS "Cloning repo (https://github.com/SteffenL/cpm)")
     execute_process(
-      COMMAND "${GIT_EXECUTABLE}" clone https://github.com/iauns/cpm ${CPM_DIR}
+      COMMAND "${GIT_EXECUTABLE}" clone https://github.com/SteffenL/cpm ${CPM_DIR}
       RESULT_VARIABLE error_code
       OUTPUT_QUIET ERROR_QUIET)
     if(error_code)
@@ -314,9 +314,9 @@ Add the following to the top of the CMakeLists.txt for your module:
       message(FATAL_ERROR "CPM requires Git.")
     endif()
     if (NOT EXISTS ${CPM_DIR}/CPM.cmake)
-      message(STATUS "Cloning repo (https://github.com/iauns/cpm)")
+      message(STATUS "Cloning repo (https://github.com/SteffenL/cpm)")
       execute_process(
-        COMMAND "${GIT_EXECUTABLE}" clone https://github.com/iauns/cpm ${CPM_DIR}
+        COMMAND "${GIT_EXECUTABLE}" clone https://github.com/SteffenL/cpm ${CPM_DIR}
         RESULT_VARIABLE error_code
         OUTPUT_QUIET ERROR_QUIET)
       if(error_code)
@@ -728,7 +728,7 @@ download it.
 
 ```cmake
 #------------------------------------------------------------------------------
-# Required CPM Setup - See: http://github.com/iauns/cpm
+# Required CPM Setup - See: http://github.com/SteffenL/cpm
 #------------------------------------------------------------------------------
 set(CPM_DIR "${CMAKE_CURRENT_BINARY_DIR}/cpm-packages" CACHE TYPE STRING)
 find_package(Git)
@@ -745,9 +745,9 @@ if ((NOT EXISTS ${CPM_DIR}/CPM.cmake) AND (DEFINED CPM_MODULE_CACHE_DIR))
   endif()
 endif()
 if (NOT EXISTS ${CPM_DIR}/CPM.cmake)
-  message(STATUS "Cloning repo (https://github.com/iauns/cpm)")
+  message(STATUS "Cloning repo (https://github.com/SteffenL/cpm)")
   execute_process(
-    COMMAND "${GIT_EXECUTABLE}" clone https://github.com/iauns/cpm ${CPM_DIR}
+    COMMAND "${GIT_EXECUTABLE}" clone https://github.com/SteffenL/cpm ${CPM_DIR}
     RESULT_VARIABLE error_code
     OUTPUT_QUIET ERROR_QUIET)
   if(error_code)

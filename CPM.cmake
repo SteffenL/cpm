@@ -723,7 +723,7 @@ macro(CPM_Finish)
   if (NOT ((DEFINED CPM_NO_UPDATE) AND (CPM_NO_UPDATE)))
     CPM_EnsureRepoIsCurrent(
       TARGET_DIR ${CPM_DIR_OF_CPM}
-      GIT_REPOSITORY "https://github.com/iauns/cpm"
+      GIT_REPOSITORY "https://github.com/SteffenL/cpm"
       GIT_TAG "origin/master"
       USE_CACHING FALSE
       )
@@ -731,8 +731,8 @@ macro(CPM_Finish)
     # Ensure that the cached version of CPM is up-to-date and cloned.
     if ((DEFINED CPM_MODULE_CACHE_DIR) AND (NOT DEFINED CPM_MODULE_CACHE_NO_WRITE))
       CPM_EnsureRepoIsCurrent(
-        TARGET_DIR "${CPM_MODULE_CACHE_DIR}/github_iauns_cpm"
-        GIT_REPOSITORY "https://github.com/iauns/cpm"
+        TARGET_DIR "${CPM_MODULE_CACHE_DIR}/github_steffenl_cpm"
+        GIT_REPOSITORY "https://github.com/SteffenL/cpm"
         GIT_TAG "origin/master"
         USE_CACHING FALSE
         )
@@ -827,27 +827,13 @@ function(_cpm_print_with_hierarchy_level msg)
 endfunction()
 
 macro(_cpm_make_valid_unid_or_path variable)
-  if (NOT "${${variable}}" STREQUAL "")
-    string(REGEX REPLACE "^git@" "" ${variable} ${${variable}})
-    string(REGEX REPLACE "^https://" "" ${variable} ${${variable}})
-    string(REGEX REPLACE "^http://" "" ${variable} ${${variable}})
-    string(REGEX REPLACE "^ssh://" "" ${variable} ${${variable}})
-    string(REGEX REPLACE "^git://" "" ${variable} ${${variable}})
-    string(REGEX REPLACE "^ftp://" "" ${variable} ${${variable}})
-    string(REGEX REPLACE "^ftps://" "" ${variable} ${${variable}})
-    string(REGEX REPLACE "^rsync://" "" ${variable} ${${variable}})
-
-    string(REGEX REPLACE "github.com" "github" ${variable} ${${variable}})
-    string(REGEX REPLACE "bitbucket.org" "bitbucket" ${variable} ${${variable}})
-
-    # Strip off .git extension, if any.
-    string(REGEX REPLACE "\\.git$" "" ${variable} ${${variable}})
-
-    string(REGEX REPLACE "[/@:]" "_" ${variable} ${${variable}})
-    string(REGEX REPLACE "[/\\.?-]" "" ${variable} ${${variable}})
-
-    string(TOLOWER ${${variable}} ${variable})
+  if ("${${variable}}" STREQUAL "")
+    message(FATAL_ERROR "Value of variable '${variable}' cannot not be empty.")
   endif()
+
+  string(REGEX REPLACE "[\\]" "/" ${variable} ${${variable}})
+  string(TOLOWER ${${variable}} ${variable})
+  string(MD5 ${variable} ${${variable}})
 endmacro()
 
 macro(_cpm_obtain_version_from_params parentVar)
