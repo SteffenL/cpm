@@ -827,13 +827,11 @@ function(_cpm_print_with_hierarchy_level msg)
 endfunction()
 
 macro(_cpm_make_valid_unid_or_path variable)
-  if ("${${variable}}" STREQUAL "")
-    message(FATAL_ERROR "Value of variable '${variable}' cannot not be empty.")
+  if (NOT "${${variable}}" STREQUAL "")
+    string(REGEX REPLACE "[\\]" "/" ${variable} ${${variable}})
+    string(TOLOWER ${${variable}} ${variable})
+    string(MD5 ${variable} ${${variable}})
   endif()
-
-  string(REGEX REPLACE "[\\]" "/" ${variable} ${${variable}})
-  string(TOLOWER ${${variable}} ${variable})
-  string(MD5 ${variable} ${${variable}})
 endmacro()
 
 macro(_cpm_obtain_version_from_params parentVar)
